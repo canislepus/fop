@@ -9,6 +9,7 @@ import java.util.Random;
 
 import org.junit.Test;
 
+import hospital.PatientQueue;
 import hospital.patients.AbstractPatient;
 
 public class TestPatientQueue {
@@ -149,7 +150,48 @@ public class TestPatientQueue {
 	// you can use the provided getShuffledArray(AbstractPatient[] patients) method.
 	@Test
 	public void validateProcessQueue(){
-		//TODO Implement test!
+		AbstractPatient[] patients = new AbstractPatient[9];
+		patients[0] = new SlightlyInjuredPatient("Edgar Friendly", LocalTime.of(7, 7));
+		patients[1] = new SlightlyInjuredPatient("Olga Dmitrievna", LocalTime.of(7, 8));
+		patients[2] = new SlightlyInjuredPatient("Edward P. Scissors", LocalTime.of(16, 7));
+		
+		patients[3] = new SeverelyInjuredPatient("Annegret Mörtel", LocalTime.of(7, 7), 0);
+		patients[4] = new SeverelyInjuredPatient("Ricardo Chillychelly", LocalTime.of(7, 8), 42);
+		patients[5] = new SeverelyInjuredPatient("Windle Poons", LocalTime.of(16, 7), 0);
+		
+		patients[6] = new EmergencyPatient("Lothar vom Elsass", LocalTime.of(7, 7));
+		patients[7] = new EmergencyPatient("Elsa von Lothringen", LocalTime.of(7, 8));
+		patients[8] = new EmergencyPatient("Baron von Münchhausen", LocalTime.of(16, 7));
+		
+		patients = getShuffledArray(patients);
+		PatientQueue<AbstractPatient> queue = new PatientQueue<AbstractPatient>(9);
+		for(AbstractPatient p : patients){
+			queue.addPatient(p);
+		}
+		
+		ArrayList<String> data = queue.processQueue();
+		if(data.size() != 9){
+			System.out.println("FAILED: Invalid length for data array!");
+			return;
+		}
+		
+		for(int i = 0; i < 9; i++)
+			System.out.println(data.get(i));
+		
+		if	(	data.get(0).endsWith("Lothar")
+			&&	data.get(1).endsWith("Elsa")
+			&&	data.get(2).endsWith("Baron")
+			&&	data.get(3).endsWith("Ricardo")
+			&&	data.get(4).endsWith("Annegret")
+			&&	data.get(5).endsWith("Windle")
+			&&	data.get(6).endsWith("Edgar")
+			&&	data.get(7).endsWith("Olga")
+			&&	data.get(8).endsWith("Edward")){
+			System.out.println("Valid\n");
+			return;
+		}
+		
+		System.out.println("Invalid\n");
 	}
 	
 	
