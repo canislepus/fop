@@ -10,7 +10,9 @@ public class SlightlyInjuredPatient extends AbstractPatient {
 
 	@Override
 	public int compareTo(AbstractPatient p) {
-		
+		if(p == null)
+			return -1;					//Non-null elements have higher priority than null.
+
 		if(p.getPriority() != TreatmentPriority.LOW)
 			return 1;
 		

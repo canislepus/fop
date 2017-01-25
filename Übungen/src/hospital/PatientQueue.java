@@ -15,7 +15,7 @@ public class PatientQueue<T extends AbstractPatient> extends ArrayListHeap<Abstr
 	 * Adds a patient to the queue.
 	 * @param patient The patient to be added
 	 */
-	public void addPatient(AbstractPatient patient) {
+	public void addPatient(T patient) {
 		this.push(patient);
 	}
 	
@@ -25,8 +25,13 @@ public class PatientQueue<T extends AbstractPatient> extends ArrayListHeap<Abstr
 	 */
 	public ArrayList<String> processQueue(){
 		ArrayList<String> queueInfo = new ArrayList<String>(this.getSize());		//There are as many Strings as patients.
-		for (int i = 0; i <= this.getSize(); i++){
-			queueInfo.set(i, this.pop().toString());
+		System.out.println(this.getSize());
+		while (!isEmpty()){
+			AbstractPatient nextpatient = this.pop();
+			if(nextpatient != null){
+				queueInfo.add(nextpatient.toString());
+			}
+			
 		}
 		return queueInfo;
 	}

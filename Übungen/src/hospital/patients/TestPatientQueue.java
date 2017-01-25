@@ -2,6 +2,8 @@ package hospital.patients;
 
 
 
+import static org.junit.Assert.*;
+
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -101,43 +103,56 @@ public class TestPatientQueue {
 		p1 = new SlightlyInjuredPatient("Edgar Friendly", LocalTime.of(7, 7));
 		p2 = new SlightlyInjuredPatient("Olga Dmitrievna", LocalTime.of(7, 8));
 		p3 = new SlightlyInjuredPatient("Edward P. Scissors", LocalTime.of(16, 7));
-		System.out.println("p1 < p2: " + ((p1.compareTo(p2) > 0) ? "Valid" : "Invalid"));
-		System.out.println("p1 < p3: " + ((p1.compareTo(p3) > 0) ? "Valid" : "Invalid"));
-		System.out.println("p2 < p3: " + ((p2.compareTo(p3) > 0) ? "Valid\n" : "Invalid\n"));
-		System.out.println("p2 > p1: " + ((p2.compareTo(p1) < 0) ? "Valid" : "Invalid"));
-		System.out.println("p3 > p1: " + ((p3.compareTo(p1) < 0) ? "Valid" : "Invalid"));
-		System.out.println("p3 > p2: " + ((p3.compareTo(p2) < 0) ? "Valid\n" : "Invalid\n"));
-		System.out.println("p1 = p1: " + ((p1.compareTo(p1) == 0) ? "Valid" : "Invalid"));
-		System.out.println("p2 = p2: " + ((p2.compareTo(p2) == 0) ? "Valid\n" : "Invalid\n"));
-		System.out.println("p3 = p3: " + ((p3.compareTo(p3) == 0) ? "Valid\n" : "Invalid\n"));
+		assertTrue("Should be equal", p1.compareTo(p1) == 0);
+		assertTrue("Should be equal", p2.compareTo(p2) == 0);
+		assertTrue("Should be equal", p3.compareTo(p3) == 0);
+		assertTrue("Priority comparison failure", p1.compareTo(p2) < 0);
+		assertTrue("Priority comparison failure", p1.compareTo(p3) < 0);
+		assertTrue("Priority comparison failure", p2.compareTo(p1) > 0);
+		assertTrue("Priority comparison failure", p2.compareTo(p3) < 0);
+		assertTrue("Priority comparison failure", p3.compareTo(p1) > 0);
+		assertTrue("Priority comparison failure", p3.compareTo(p2) > 0);
 		
 		System.out.println("SeverelyInjuredPatient:");
-		p1 = new SeverelyInjuredPatient("Edgar Friendly", LocalTime.of(7, 7), 0);
-		p2 = new SeverelyInjuredPatient("Olga Dmitrievna", LocalTime.of(7, 8), 42);
-		p3 = new SeverelyInjuredPatient("Edward P. Scissors", LocalTime.of(16, 7), 17);
-		System.out.println("p1 < p2: " + ((p1.compareTo(p2) > 0) ? "Valid" : "Invalid"));
-		System.out.println("p1 < p3: " + ((p1.compareTo(p3) > 0) ? "Valid" : "Invalid"));
-		System.out.println("p2 > p3: " + ((p2.compareTo(p3) < 0) ? "Valid\n" : "Invalid\n"));
-		System.out.println("p2 > p1: " + ((p2.compareTo(p1) < 0) ? "Valid" : "Invalid"));
-		System.out.println("p3 > p1: " + ((p3.compareTo(p1) < 0) ? "Valid" : "Invalid"));
-		System.out.println("p3 < p2: " + ((p3.compareTo(p2) > 0) ? "Valid\n" : "Invalid\n"));
-		System.out.println("p1 = p1: " + ((p1.compareTo(p1) == 0) ? "Valid" : "Invalid"));
-		System.out.println("p2 = p2: " + ((p2.compareTo(p2) == 0) ? "Valid\n" : "Invalid\n"));
-		System.out.println("p3 = p3: " + ((p3.compareTo(p3) == 0) ? "Valid\n" : "Invalid\n"));
+		p1 = new SeverelyInjuredPatient("Edward P. Scissors", LocalTime.of(7, 8), 42);
+		p2 = new SeverelyInjuredPatient("Olga Dmitrievna", LocalTime.of(16, 7), 17);
+		p3 = new SeverelyInjuredPatient("Edgar Friendly", LocalTime.of(7, 7), 0);
+
+		assertTrue("Should be equal", p1.compareTo(p1) == 0);
+		assertTrue("Should be equal", p2.compareTo(p2) == 0);
+		assertTrue("Should be equal", p3.compareTo(p3) == 0);
+		assertTrue("Priority comparison failure", p1.compareTo(p2) < 0);
+		assertTrue("Priority comparison failure", p1.compareTo(p3) < 0);
+		assertTrue("Priority comparison failure", p2.compareTo(p1) > 0);
+		assertTrue("Priority comparison failure", p2.compareTo(p3) < 0);
+		assertTrue("Priority comparison failure", p3.compareTo(p1) > 0);
+		assertTrue("Priority comparison failure", p3.compareTo(p2) > 0);
+		
 		
 		System.out.println("EmergencyPatient:");
 		p1 = new EmergencyPatient("Edgar Friendly", LocalTime.of(7, 7));
 		p2 = new EmergencyPatient("Olga Dmitrievna", LocalTime.of(7, 8));
 		p3 = new EmergencyPatient("Edward P. Scissors", LocalTime.of(16, 7));
-		System.out.println("p1 < p2: " + ((p1.compareTo(p2) > 0) ? "Valid" : "Invalid"));
-		System.out.println("p1 < p3: " + ((p1.compareTo(p3) > 0) ? "Valid" : "Invalid"));
-		System.out.println("p2 < p3: " + ((p2.compareTo(p3) > 0) ? "Valid\n" : "Invalid\n"));
-		System.out.println("p2 > p1: " + ((p2.compareTo(p1) < 0) ? "Valid" : "Invalid"));
-		System.out.println("p3 > p1: " + ((p3.compareTo(p1) < 0) ? "Valid" : "Invalid"));
-		System.out.println("p3 > p2: " + ((p3.compareTo(p2) < 0) ? "Valid\n" : "Invalid\n"));
-		System.out.println("p1 = p1: " + ((p1.compareTo(p1) == 0) ? "Valid" : "Invalid"));
-		System.out.println("p2 = p2: " + ((p2.compareTo(p2) == 0) ? "Valid\n" : "Invalid\n"));
-		System.out.println("p3 = p3: " + ((p3.compareTo(p3) == 0) ? "Valid\n" : "Invalid\n"));
+		assertTrue("Should be equal", p1.compareTo(p1) == 0);
+		assertTrue("Should be equal", p2.compareTo(p2) == 0);
+		assertTrue("Should be equal", p3.compareTo(p3) == 0);
+		assertTrue("Priority comparison failure", p1.compareTo(p2) < 0);
+		assertTrue("Priority comparison failure", p1.compareTo(p3) < 0);
+		assertTrue("Priority comparison failure", p2.compareTo(p1) > 0);
+		assertTrue("Priority comparison failure", p2.compareTo(p3) < 0);
+		assertTrue("Priority comparison failure", p3.compareTo(p1) > 0);
+		assertTrue("Priority comparison failure", p3.compareTo(p2) > 0);
+		
+		System.out.println("Mixed patients:");
+		p1 = new EmergencyPatient("Edgar Friendly", LocalTime.of(7, 7));
+		p2 = new SeverelyInjuredPatient("Olga Dmitrievna", LocalTime.of(7, 8), 0);
+		p3 = new SlightlyInjuredPatient("Edward P. Scissors", LocalTime.of(16, 7)); 
+		assertTrue("Priority comparison failure", p1.compareTo(p2) < 0);
+		assertTrue("Priority comparison failure", p1.compareTo(p3) < 0);
+		assertTrue("Priority comparison failure", p2.compareTo(p1) > 0);
+		assertTrue("Priority comparison failure", p2.compareTo(p3) < 0);
+		assertTrue("Priority comparison failure", p3.compareTo(p1) > 0);
+		assertTrue("Priority comparison failure", p3.compareTo(p2) > 0);
 	}
 
 	//**************************************************************
@@ -150,6 +165,7 @@ public class TestPatientQueue {
 	// you can use the provided getShuffledArray(AbstractPatient[] patients) method.
 	@Test
 	public void validateProcessQueue(){
+		System.out.println("Validating PatientQueue.processQueue:\n");
 		AbstractPatient[] patients = new AbstractPatient[9];
 		patients[0] = new SlightlyInjuredPatient("Edgar Friendly", LocalTime.of(7, 7));
 		patients[1] = new SlightlyInjuredPatient("Olga Dmitrievna", LocalTime.of(7, 8));
@@ -163,35 +179,32 @@ public class TestPatientQueue {
 		patients[7] = new EmergencyPatient("Elsa von Lothringen", LocalTime.of(7, 8));
 		patients[8] = new EmergencyPatient("Baron von Münchhausen", LocalTime.of(16, 7));
 		
-		patients = getShuffledArray(patients);
+		AbstractPatient[] shufpatients = getShuffledArray(patients);
 		PatientQueue<AbstractPatient> queue = new PatientQueue<AbstractPatient>(9);
-		for(AbstractPatient p : patients){
-			queue.addPatient(p);
+		for(int i = 0; i < 9; i++){
+			//System.out.println(p.toString());
+			queue.addPatient(shufpatients[i]);
 		}
 		
+		System.out.println("Processing Queue" + queue.getSize());
 		ArrayList<String> data = queue.processQueue();
-		if(data.size() != 9){
-			System.out.println("FAILED: Invalid length for data array!");
-			return;
-		}
+		System.out.println("Queue Processed " + data.size());
+		//assertTrue("Invalid size for data array", data.size() >= 9);
 		
-		for(int i = 0; i < 9; i++)
+		
+		for(int i = 0; i < data.size(); i++)
 			System.out.println(data.get(i));
 		
-		if	(	data.get(0).endsWith("Lothar")
-			&&	data.get(1).endsWith("Elsa")
-			&&	data.get(2).endsWith("Baron")
-			&&	data.get(3).endsWith("Ricardo")
-			&&	data.get(4).endsWith("Annegret")
-			&&	data.get(5).endsWith("Windle")
-			&&	data.get(6).endsWith("Edgar")
-			&&	data.get(7).endsWith("Olga")
-			&&	data.get(8).endsWith("Edward")){
-			System.out.println("Valid\n");
-			return;
-		}
+		assertEquals("Mismatch in queue order!", data.get(0), patients[6].toString());
+		assertEquals("Mismatch in queue order!", data.get(1), patients[7].toString());
+		assertEquals("Mismatch in queue order!", data.get(2), patients[8].toString());
+		assertEquals("Mismatch in queue order!", data.get(3), patients[4].toString());
+		assertEquals("Mismatch in queue order!", data.get(4), patients[3].toString());
+		assertEquals("Mismatch in queue order!", data.get(5), patients[5].toString());
+		assertEquals("Mismatch in queue order!", data.get(6), patients[0].toString());
+		assertEquals("Mismatch in queue order!", data.get(7), patients[1].toString());
+		assertEquals("Mismatch in queue order!", data.get(8), patients[2].toString());
 		
-		System.out.println("Invalid\n");
 	}
 	
 	

@@ -14,13 +14,20 @@ public class SeverelyInjuredPatient extends AbstractPatient {
 
 	@Override
 	public int compareTo(AbstractPatient p) {
+		if(p == null)
+			return -1;					//Non-null elements have higher priority than null.
+
 		if(p.getPriority() == TreatmentPriority.LOW)			//Lower priority
 			return -1;
 		if(p.getPriority() == TreatmentPriority.HIGH)			//Higher priority
 			return 1;
-		if(p instanceof SeverelyInjuredPatient)
-			return (this.injuryRating > ((SeverelyInjuredPatient)p).injuryRating)? -1 : 1;			//If both are severely injured, use injury rating
-		
+		if(p instanceof SeverelyInjuredPatient){
+			int irdiff = (int)Math.signum(((SeverelyInjuredPatient) p).injuryRating - injuryRating);			//If both are severely injured, use injury rating
+			if(irdiff == 0){
+				return this.arrivalTime.compareTo(p.arrivalTime);
+			}
+			return irdiff;
+		}
 		return 0;
 	}
 

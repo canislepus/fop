@@ -5,13 +5,9 @@ import java.util.ArrayList;
 public class ArrayListHeap<T extends Comparable<T>> extends AbstractBinaryHeap<T> {
 	
 	private ArrayList<T> data;
-	private int size;
-	private int lastElement;			//Index of the last element in the tree. Used to reliably tell the end of the tree.
 
 	public ArrayListHeap(int initialSize) {
 		data = new ArrayList<T>(initialSize);
-		size = 0;
-		lastElement = 0;
 	}
 
 	/**
@@ -20,7 +16,9 @@ public class ArrayListHeap<T extends Comparable<T>> extends AbstractBinaryHeap<T
 	 */
 	@Override
 	public int getSize() {
-		return size;
+		//System.out.println(data.size());
+		//return size;
+		return data.size();
 	}
 	
 	/**
@@ -29,7 +27,7 @@ public class ArrayListHeap<T extends Comparable<T>> extends AbstractBinaryHeap<T
 	 */
 	@Override
 	public boolean isEmpty() {
-		return (size <= 0);			//should not be less but... cmove vs. cmovng ...
+		return data.isEmpty();			//should not be less but... cmove vs. cmovng ...
 	}
 	
 	/**
@@ -42,7 +40,10 @@ public class ArrayListHeap<T extends Comparable<T>> extends AbstractBinaryHeap<T
 	 */
 	@Override
 	protected boolean isHeap(int parentIndex, int childIndex) {
-		return (data.get(parentIndex).compareTo(data.get(childIndex)) < 0);
+		if(childIndex > data.size())
+			return true;			//The condition is also met when the parent has no children.
+					
+		return (data.get(parentIndex).compareTo(data.get(childIndex)) <= 0);
 	}
 	
 	/**
@@ -65,13 +66,19 @@ public class ArrayListHeap<T extends Comparable<T>> extends AbstractBinaryHeap<T
 	 */
 	@Override
 	public void push(T element) {
+		/*
 		lastElement++;							//Yes, I'm incrementing this FIRST. And yes, I know that the compiler would probably do this for me anyways.
 		data.set(lastElement, element);
 		this.heapifyUp(lastElement);
 		do{										//Set lastElement to the new last element.
 			lastElement--;
 		}while(data.get(lastElement) == null);	//Decrement lastElement until the next non-null element is reached.
-		size++;
+		/**/
+		if(!data.add(element)){
+			System.out.println("Lots of adding-failiness here!");
+		}
+		this.heapifyUp(data.size() - 1);
+		
 	}
 
 	/**
@@ -89,14 +96,17 @@ public class ArrayListHeap<T extends Comparable<T>> extends AbstractBinaryHeap<T
 	 */
 	@Override
 	public T pop() {
+		if(data.isEmpty()){
+			return null;
+		}
+		
 		T retval = data.get(0);
-		data.set(0, data.get(lastElement));		//
-		data.set(lastElement, null);			//Set the last element to null
+		int lastElement;
+		for (lastElement = data.size() - 1; lastElement >= 0 && data.get(lastElement) == null; lastElement--){}
+		swapNodes(0, lastElement);
+		data.remove(lastElement);
 		this.heapifyDown(0); 
-		do{										//Set lastElement to the new last element.
-			lastElement--;
-		}while(data.get(lastElement) == null);	//Decrement lastElement until the next non-null element is reached.
-		size--;									//Decrement element count
+		
 		return retval;
 	}
 
