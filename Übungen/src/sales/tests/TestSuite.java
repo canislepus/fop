@@ -1,8 +1,6 @@
 package sales.tests;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 import java.time.LocalDate;
 import java.time.Month;
@@ -121,7 +119,8 @@ public class TestSuite {
      */
     @Test
     public void testGetFilteredSalesAsSet_Month(){
-        fail("Test not implemented");
+        Set<Sale<?>> output = INPUT_Stats.getFilteredSalesAsSet(INPUT_Sales, INPUT_Stats.getMonthFilter(INPUT_Month));
+        assertArrayEquals("Test for month filtering failed!", CORRECT_OUTPUT_SalesFilteredByMonth.toArray(), output.toArray());
     }
     
     /*
@@ -137,7 +136,8 @@ public class TestSuite {
      */
     @Test
     public void testGetFilteredSalesAsSet_TimePeriod(){
-        fail("Test not implemented");
+    	Set<Sale<?>> output = INPUT_Stats.getFilteredSalesAsSet(INPUT_Sales, INPUT_Stats.getTimePeriodFilter(INPUT_StartDate, INPUT_EndDate));
+    	assertArrayEquals("Test for time period filtering failed!", CORRECT_OUTPUT_SalesFilteredByTimePeriod.toArray(), output.toArray());
     }
     
     /*
@@ -151,7 +151,10 @@ public class TestSuite {
      */
     @Test
     public void testGetSortedSalesList(){
-        fail("Test not implemented");
+        List<Sale<?>> output = INPUT_Stats.getSortedSalesList(INPUT_Sales, (a, b) -> (a.getDate().compareTo(b.getDate())));
+        assertArrayEquals("Test for sorting by date failed!",
+        		CORRECT_OUTPUT_SalesSortedByDate.toArray(), output.toArray());
+        //If both arrays are equal the list was successfully sorted.
     }
     
     /*
@@ -164,7 +167,9 @@ public class TestSuite {
      */
     @Test
     public void testCalculateTotal(){
-        fail("Test not implemented");
+        assertTrue("Test for calculating total failed!",
+        		INPUT_Stats.getTotalRevenue(INPUT_Sales) == CORRECT_OUTPUT_Total);
+        //Compare totals
     }
     
     /*
@@ -177,7 +182,9 @@ public class TestSuite {
      */
     @Test
     public void testCalculateAverage(){
-        fail("Test not implemented");
+    	assertTrue("Test for calculating average failed!",
+        		INPUT_Stats.getAverageRevenue(INPUT_Sales) == CORRECT_OUTPUT_Average);
+        //Compare averages
     }
     
     /*
@@ -190,6 +197,9 @@ public class TestSuite {
      */
     @Test
     public void testCalculateStandardDeviation(){
-        fail("Test not implemented");
+    	System.out.println(INPUT_Stats.getStdDev(INPUT_Sales) + " | " + CORRECT_OUTPUT_StdDev);
+    	assertTrue("Test for calculating standard deviation failed!",
+        		INPUT_Stats.getStdDev(INPUT_Sales) == CORRECT_OUTPUT_StdDev);
+        //Compare standard deviations
     }
 }
