@@ -198,8 +198,8 @@ public class TestSuite {
     @Test
     public void testCalculateStandardDeviation(){
     	System.out.println(INPUT_Stats.getStdDev(INPUT_Sales) + " | " + CORRECT_OUTPUT_StdDev);
-    	assertTrue("Test for calculating standard deviation failed!",
-        		INPUT_Stats.getStdDev(INPUT_Sales) == CORRECT_OUTPUT_StdDev);
+    	assertEquals("Test for calculating standard deviation failed!",
+        		INPUT_Stats.getStdDev(INPUT_Sales), CORRECT_OUTPUT_StdDev, 0.0000000001);
         //Compare standard deviations
     }
 }
